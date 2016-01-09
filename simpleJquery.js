@@ -1,4 +1,5 @@
 /*!
+ * 
  * Codes are for a simple implementation of 
  * how the jQuery framework works,
  * it includes 2 main features that jQuery has:
@@ -15,13 +16,14 @@
 
 (function(window){
 	var jQuery = function(selector) {
+        //singleton
 		if (this === window) return new jQuery(selector);
 
-		//getElementsByTagName does not return an array
+		//getElementsByTagName does not return an array,but a NodeList
 		var nodeList = document.getElementsByTagName(selector);
 		var eles = [];
         
-        //trans nodeList to array
+        //translate nodeList to array
 		for(var i = 0; i < nodeList.length; i++) {
             eles[i] = nodeList.item(i);
 		}
@@ -35,6 +37,8 @@
     //push all elements to jQuery object and set the length
     //property 
 	jQuery.fn.setAttr = function(attr) {
+        //because in singleton,only one instance of jQuery exists,
+        //so the length must be set 0 when calling the setAttr function
 		this.length = 0;
 		Array.prototype.push.apply(this, attr);
 
